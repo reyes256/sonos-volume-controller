@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,100&display=swap');
+
+*{
+    color: white;
+    font-family: 'Barlow', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #575351; /* #575351*/
+    text-align: center;
+}
+
+h1{
+    font-size: 5.5rem;
+    font-weight: 700;
+    padding: 15px 0;
+}
+
+h2{
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+h3{
+    font-size: 1.5rem;
+    font-weight: 100;
+    font-style: italic;
+}
+
+p{
+    padding: 30px;
+    font-size: 1.2rem;
+}
+
+
+
+
+
+#boton{
+    font-size: 1.5rem;
+    border-radius: 80px;
+    border: none;
+    color: #333;
+    width: 250px;
+    margin: 15px;
+    padding: 3px;
+}
+
+#boton:active{
+    background-color: #999896;
+}

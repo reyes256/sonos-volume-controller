@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="static/img/favicon.png">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    <title>Sonos Volume Controller</title>
+</head>
+<body>
+    <form action="save" method="post">
+        <h1>SONOS</h1>
+        <h2>{{device_name}}</h2>
+        <h3>{{device_ip}}</h3>
+
+        <p>Current Volume: %{{volume}}</p>
+        <input type="range" name="volume_input" value="{{volume}}" min="1">
+        <br>
+        <input type="submit" value="Save" id="boton">
+    </form>
+</body>
+</html>
