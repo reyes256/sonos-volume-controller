@@ -1,9 +1,9 @@
 #
-#   Segundo prototipo para el control de volume para Onos
+#   Flask web application for volume control
 #
 
-from flask import Flask, render_template, request, flash
-import threading,time,soco,subprocess,os
+from flask import Flask, render_template, request
+import soco,threading,time
 
 device = soco.discovery.any_soco()
 
@@ -29,7 +29,7 @@ def index():
 @app.route("/save", methods=["POST","GET"])
 def save():
     global volume
-    volume = int(request.form['volume_input'])
+    volume = request.form['volume_input']
 
     return render_template("index.html", volume=str(volume), device_name=device.player_name, device_ip=device.ip_address)
 

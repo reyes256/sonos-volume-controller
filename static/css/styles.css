@@ -30,13 +30,27 @@ h3{
 }
 
 p{
-    padding: 30px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    padding-top: 30px;
 }
 
+input[type="range"]{
+    margin: 60px;
+    width: 300px;
+}
 
+/* 
+input[type="range"]::-webkit-slider-runnable-track{
+    appearance: none;
+    border-radius: 60px;
+    height: 10px;
+}
 
-
+input[type="range"]::-webkit-slider-thumb{
+    appearance: none; 
+    width: 45px;
+    background: pink;
+} */
 
 #boton{
     font-size: 1.5rem;
@@ -44,7 +58,6 @@ p{
     border: none;
     color: #333;
     width: 250px;
-    margin: 15px;
     padding: 3px;
 }
 
