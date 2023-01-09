@@ -1,0 +1,32 @@
+-PRIMER PASO:
+	Instalar Python (python-3.11.1-amd64.exe) dale next a todo
+ 	----OJITO MUY IMPORTANTE-----
+	En la primera pantalla seleccionar la casilla de agregar al PATH   
+
+-SEGUNDO PASO:
+	Instalar Git (Git-2.39.0.2-64-bit.exe) dale next a todo igual
+
+-TERCER PASO:
+	Dentro de la carpeta Scripts,
+	Abrir Setup.bat solamente una vez
+
+-CUARTO PASO:
+	Dentro de la misma carpeta Scripts,
+	Abrir SonosVolume.bat para ejecutar el programa
+
+	(Se puede mandar una copia al escritorio)
+
+	Al ejecutarse se mostrara lo siguiente:
+
+	* Serving Flask app 'app'
+ 	* Debug mode: off
+	WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ 	* Running on all addresses (0.0.0.0)
+ 	* Running on http://127.0.0.1:80
+ 	* Running on http://192.168.1.xx:80  <----- la segunda ip que salga es la pagina, con solo la ip basta
+	Press CTRL+C to quit
+
+	Buscar en cualquier navegador la ip obtenida.
+
+-QUINTO PASO:
+	Ponerse hasta el culo con el bocinon viejo
