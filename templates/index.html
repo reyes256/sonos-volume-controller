@@ -12,20 +12,34 @@
     <form action="save" method="post">
         <h1>SONOS</h1>
         <h2>{{device_name}}</h2>
-        <h3>{{device_ip}}</h3>
+        <h3>Host: {{host_ip}}</h3>
 
-        <p>Current Volume: %{{volume}}</p>
-        <input type="range" name="volume_input" value="{{volume}}" min="1">
-        <br>
-        <input type="submit" value="Save" id="boton">
+        <p>Current Volume: <span id="rangeValue">%{{volume}}</span></p>
+        <input type="range" id="rangeInput" name="volume_input" value="{{volume}}" min="1">
     </form>
 
     <script>
-        x = 1;
+        const rangeInput = document.getElementById('rangeInput');
 
-        while(x <= 100){
-            console.log(x);
-            x += 1;
+        rangeInput.addEventListener('mouseup', function() {
+            submitVolume();
+        });
+
+        rangeInput.addEventListener('touchend', function() {
+            submitVolume();
+        });
+
+        function submitVolume() {
+            const value = rangeInput.value;
+            document.getElementById('rangeValue').innerText = `%${value}`;
+
+            const formData = new FormData();
+            formData.append('volume_input', value);
+
+            fetch('http://{{host_ip}}/save', {
+                method: 'POST',
+                body: formData
+            })
         }
     </script>
 </body>
