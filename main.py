@@ -1,4 +1,4 @@
-import soco, threading, time, sys
+import soco, threading, time, sys, os, socket
 from flask import Flask, render_template, request
 from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu
 from PyQt5.QtGui import QIcon
@@ -37,11 +37,11 @@ def runSystemTrayIcon():
     Qapp = QApplication(sys.argv)
     
     menu = QMenu()
-    exitAction = menu.addAction('Exit')
+    exitAction = menu.addAction("Exit")
     exitAction.triggered.connect(Qapp.quit)
 
-    trayIcon = QSystemTrayIcon(QIcon('static/img/favicon.png'), parent=Qapp)
-    trayIcon.setToolTip('Sonos Volume Controller')
+    trayIcon = QSystemTrayIcon(QIcon("static/img/favicon.png"), parent=Qapp)
+    trayIcon.setToolTip("Sonos Volume Controller")
     trayIcon.setContextMenu(menu)
     trayIcon.show()
 
@@ -50,10 +50,20 @@ def runSystemTrayIcon():
     exit_application = True  
     sys.exit()
 
+def getPrivateIP():
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    return ip_address
+
 if __name__ == "__main__":
     threading.Thread(target=runVolumeAdjustment, daemon=True).start()
     threading.Thread(target=runSystemTrayIcon, daemon=True).start()
     threading.Thread(target=runWebServer, daemon=True).start()
+
+    try:
+        os.system(f"start http://{getPrivateIP()}:80")
+    except:
+        print("Could not open default browser")
 
     while not exit_application:
         time.sleep(0.5)
