@@ -1,4 +1,4 @@
-import soco, threading, time, sys, os, socket
+import soco, threading, time, sys, os, socket, icon_rc
 from flask import Flask, render_template, request
 from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu
 from PyQt5.QtGui import QIcon
@@ -8,14 +8,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html", volume=volume, device_name=device.player_name, device_ip=device.ip_address)
+    return render_template("index.html", volume=volume, device_name=device.player_name, host_ip=getPrivateIP())
 
 @app.route("/save", methods=["POST","GET"])
 def save():
     global volume
     volume = request.form['volume_input']
 
-    return render_template("index.html", volume=str(volume), device_name=device.player_name, device_ip=device.ip_address)
+    return render_template("index.html", volume=str(volume), device_name=device.player_name, host_ip=getPrivateIP())
 
 global exit_application
 global volume
@@ -36,11 +36,20 @@ def runSystemTrayIcon():
 
     Qapp = QApplication(sys.argv)
     
+    def openBrowser():
+        try:
+            os.system(f"start http://{getPrivateIP()}:80")
+        except:
+            print("Could not open default browser")
+
     menu = QMenu()
     exitAction = menu.addAction("Exit")
     exitAction.triggered.connect(Qapp.quit)
 
-    trayIcon = QSystemTrayIcon(QIcon("static/img/favicon.png"), parent=Qapp)
+    openBrowserAction = menu.addAction("Open in browser")
+    openBrowserAction.triggered.connect(openBrowser)
+
+    trayIcon = QSystemTrayIcon(QIcon(":static/img/favicon.png"), parent=Qapp)
     trayIcon.setToolTip("Sonos Volume Controller")
     trayIcon.setContextMenu(menu)
     trayIcon.show()
