@@ -32,7 +32,7 @@ def runWebServer():
     app.run(host="0.0.0.0", port=80)
 
 def runSystemTrayIcon():
-    global exit_application, os_name
+    global exit_application
 
     Qapp = QApplication(sys.argv)
 
