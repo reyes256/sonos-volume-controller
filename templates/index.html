@@ -9,26 +9,58 @@
     <title>Sonos Volume Controller</title>
 </head>
 <body>
-    <form action="save" method="post">
+    <form action="" method="post">
         <h1>SONOS</h1>
-        <h2>{{device_name}}</h2>
-        <h3>Host: {{host_ip}}</h3>
+        <h2>{{ device_name }}</h2>
+        <h3>Host: {{ host_ip }}</h3>
 
-        <p>Current Volume: <span id="rangeValue">%{{volume}}</span></p>
-        <input type="range" id="rangeInput" name="volume_input" value="{{volume}}" min="1" max="100" oninput="updateVolume()">
+        <p>Current Volume: <span id="currentVolume">%{{ volume }}</span></p>
+
+        <div>
+            <a href="" onclick="previousSong()">Previous</a>
+            <a href="" onclick="pauseSong()">Pause</a>
+            <a href="" onclick="nextSong()">Next</a>
+        </div>
+        <input type="range" id="newVolume" value="{{ volume }}" min="1" max="100" oninput="updateVolume()">
     </form>
 
     <script>
-        const rangeInput = document.getElementById('rangeInput');
-
+        
         function updateVolume() {
-            const value = rangeInput.value;
-            document.getElementById('rangeValue').innerText = `%${value}`;
+            const value = document.getElementById('newVolume').value;
+            document.getElementById('currentVolume').innerText = `%${value}`;
 
             const formData = new FormData();
-            formData.append('volume_input', value);
+            formData.append('newVolume', value);
 
-            fetch('http://{{host_ip}}/save', {
+            makeRequest("updateVolume", formData)
+        }
+
+        function pauseSong(){
+            const formData = new FormData();
+            formData.append('pause', "song");
+
+            makeRequest("pause", formData)
+        }
+
+        function previousSong(){
+            const formData = new FormData();
+            formData.append('previous', "song");
+
+            makeRequest("previous", formData)
+        }
+
+        function nextSong(){
+            const formData = new FormData();
+            formData.append('next', "song");
+
+            makeRequest("next", formData)
+        }
+
+        function makeRequest(endpoint, formData){
+            event.preventDefault();
+
+            fetch(`http://{{ host_ip }}/${endpoint}`, {
                 method: 'POST',
                 body: formData
             })

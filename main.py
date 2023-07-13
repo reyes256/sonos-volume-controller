@@ -10,10 +10,39 @@ app = Flask(__name__)
 def index():
     return render_template("index.html", volume=volume, device_name=device.player_name, host_ip=getPrivateIP())
 
-@app.route("/save", methods=["POST","GET"])
-def save():
+@app.route("/updateVolume", methods=["POST","GET"])
+def updateVolume():
     global volume
-    volume = request.form['volume_input']
+    volume = request.form['newVolume']
+
+    return render_template("index.html", songStatus=device.get_current_transport_info()['current_transport_state'], volume=str(volume), device_name=device.player_name, host_ip=getPrivateIP())
+
+@app.route("/pause", methods=["POST","GET"])
+def pause():
+    songStatus = device.get_current_transport_info()['current_transport_state']
+
+    if songStatus == "PLAYING":
+        device.pause()
+    elif songStatus == "PAUSED_PLAYBACK":
+        device.play()
+
+    return render_template("index.html", volume=str(volume), device_name=device.player_name, host_ip=getPrivateIP())
+
+@app.route("/previous", methods=["POST","GET"])
+def previous():
+    try:
+        device.previous()
+    except:
+        print("Next song")
+
+    return render_template("index.html", volume=str(volume), device_name=device.player_name, host_ip=getPrivateIP())
+
+@app.route("/next", methods=["POST","GET"])
+def next():
+    try:
+        device.next()
+    except:
+        print("Previous Song")
 
     return render_template("index.html", volume=str(volume), device_name=device.player_name, host_ip=getPrivateIP())
 
