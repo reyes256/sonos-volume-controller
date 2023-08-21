@@ -5,30 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="static/img/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0" />
+    <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
     <title>Sonos Volume Controller</title>
 </head>
 <body>
     <form action="" method="post">
-        <h1>SONOS</h1>
-        <h2>{{ device_name }}</h2>
-        <h3>Host: {{ host_ip }}</h3>
-
-        <p>Current Volume: <span id="currentVolume">%{{ volume }}</span></p>
-
-        <div>
-            <a href="" onclick="previousSong()">Previous</a>
-            <a href="" onclick="pauseSong()">Pause</a>
-            <a href="" onclick="nextSong()">Next</a>
+        <h1 class="title">SONOS</h1>
+        <h2 class="device_name">{{ device_name }}</h2>
+        <h3 class="host_ip">Host: {{ host_ip }}</h3>
+        
+        <div class="playback_controls">
+            <span class="material-symbols-outlined" onclick="previousSong()">skip_previous</span>
+            <span class="material-symbols-outlined" onclick="pauseSong()">play_pause</span>
+            <span class="material-symbols-outlined" onclick="nextSong()">skip_next</span>
         </div>
-        <input type="range" id="newVolume" value="{{ volume }}" min="1" max="100" oninput="updateVolume()">
+        
+        <p>Current Volume: %<span id="currentVolume">{{ volume }}</span></p>
+        <input type="range" id="volume_track" value="{{ volume }}" min="1" max="100" oninput="updateVolume()">
     </form>
 
     <script>
-        
+        let songStatus = "{{ newSongStatus }}"
+
         function updateVolume() {
-            const value = document.getElementById('newVolume').value;
-            document.getElementById('currentVolume').innerText = `%${value}`;
+            const value = document.getElementById('volume_track').value;
+            document.getElementById('currentVolume').innerText = `${value}`;
 
             const formData = new FormData();
             formData.append('newVolume', value);
