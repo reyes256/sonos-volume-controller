@@ -15,7 +15,7 @@ def updateVolume():
     global volume
     volume = request.form['newVolume']
 
-    return render_template("index.html", songStatus=device.get_current_transport_info()['current_transport_state'], volume=str(volume), device_name=device.player_name, host_ip=getPrivateIP())
+    return render_template("index.html", volume=str(volume), device_name=device.player_name, host_ip=getPrivateIP())
 
 @app.route("/pause", methods=["POST","GET"])
 def pause():
